@@ -2,13 +2,23 @@ from random import *
 from turtle import *
 from freegames import path
 
+
 car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
+#ARCR: Se inicializo variable para mensaje de victoria
+numTiles = 0
 
 # VRDL: Se crea variable para contar no. de taps
 np = 0
+
+
+#ARCR: Se creo Array para los indices como letras y simbolos, por si acaso las letras no bastan.
+
+otherind =  ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 
+'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 
+'X', 'Y', 'Z''*','?','¿','!','+','-','$']
 
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
@@ -45,6 +55,11 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
+    #ARCR: Se añadio metodo para mensaje de ganaste
+        global numTiles
+        numTiles+=1
+        if numTiles == 32:
+            print("Ganaste :D")
     # VRDL. Se crea contador de taps
     np+=1
     # VRDL. Se despliega número de taps en terminal
@@ -71,8 +86,10 @@ def draw():
         # VRDL. Se centran números modificando valores sumados a x y y
         goto(x + 25, y + 2)
         color('black')
+        tilmark = tiles[mark]
         #VRDL. Se añadió "align = "center""
-        write(tiles[mark], font=('Arial', 30, 'normal'), align="center")
+        write(otherind[tilmark], font=('Arial', 30, 'normal'), align = "center")
+        #ARCR: Se cambio para que las letras aparezcan.
 
     update()
     ontimer(draw, 100)
